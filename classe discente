@@ -1,0 +1,58 @@
+# criação da estrutura para representar um discente -  Classe Discente
+class Discente:
+    def __init__(self, matricula, nome, ano, periodo, tipo, status, nivel, curso, modalidade, unidade, unidade_gestora):
+        # mapeamento de cada coluna do CSV para os atributos do objeto
+        self.matricula = matricula
+        self.nome = nome
+        self.ano = ano
+        self.periodo = periodo
+        self.tipo = tipo
+        self.status = status
+        self.nivel = nivel
+        self.curso = curso
+        self.modalidade = modalidade
+        self.unidade = unidade
+        self.unidade_gestora = unidade_gestora
+
+# leitura dos dados e mapeamento para a classe discente
+def mapear_dados_csv(nome_arquivo):
+    # aqui abrimos o arquivo de forma tradicional para leitura de nomes que contenham acentos e pontuações
+    arquivo = open(nome_arquivo, 'r', encoding='utf-8')
+    linhas = arquivo.readlines()
+    arquivo.close()
+    
+    # verificação do cabeçalho: o índice 0 no modelo de linhas e colunas sempre guardara, aqui, a primeira linha (cabeçalho)
+    cabecalho = linhas[0].strip()
+    print("Cabeçalho verificado no CSV:", cabecalho)
+    
+    # estrutura da linha -  PARTE 2: criação de lista, mas sem a função implementada.
+    lista_de_objetos = []
+    
+    # o laço for inicia a leitura no índice 1 para ignorar o cabeçalho lido acima, então percorremos os nomes
+    for i in range(1, len(linhas)):
+        # limpa as quebras de linha e remove aspas duplas dos textos, tornando mais facil a extração de dados
+        linha_limpa = linhas[i].strip().replace('"', '')
+        
+        # esse if evita erro caso o arquivo tenha uma linha em branco no final
+        if linha_limpa != "":
+            # quebra a string em uma lista de colunas separadas por vírgula, assim como no arquivo csv
+            colunas = linha_limpa.split(',')
+            
+            # instancia a classe mapeando as strings extraídas para o formato de objeto esperado
+            aluno_mapeado = Discente(
+                colunas[0], colunas[1], colunas[2], colunas[3], 
+                colunas[4], colunas[5], colunas[6], colunas[7], 
+                colunas[8], colunas[9], colunas[10]
+            )
+            
+            lista_de_objetos.append(aluno_mapeado)
+            
+    # retorna os dados mapeados para que a Parte 2 (funcao que percorre os nomes) e 3(funcao de impressao) assumam o controle
+    return lista_de_objetos
+
+## área de testes ##
+# aqui estamos chamando a função e passando o nome real do arquivo para verificar se está tudo ok
+nome_do_csv = "dis-csv-discentes-de-graduacao-de-2026.csv"
+lista_pronta = mapear_dados_csv(nome_do_csv)
+
+print(f"Total de alunos carregados na memória: {len(lista_pronta)}")
