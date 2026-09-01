@@ -1,3 +1,5 @@
+import csv
+
 # criação da estrutura para representar um discente -  Classe Discente
 class Discente:
     def __init__(self, matricula, nome, ano, periodo, tipo, status, nivel, curso, modalidade, unidade, unidade_gestora):
@@ -56,3 +58,10 @@ nome_do_csv = "dis-csv-discentes-de-graduacao-de-2026.csv"
 lista_pronta = mapear_dados_csv(nome_do_csv)
 
 print(f"Total de alunos carregados na memória: {len(lista_pronta)}")
+
+def ler_discente(lista_de_objetos):
+    for aluno in lista_de_objetos:
+        print(aluno.nome)
+        
+ler_discente(lista_pronta)
+
