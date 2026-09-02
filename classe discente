@@ -52,16 +52,30 @@ def mapear_dados_csv(nome_arquivo):
     # retorna os dados mapeados para que a Parte 2 (funcao que percorre os nomes) e 3(funcao de impressao) assumam o controle
     return lista_de_objetos
 
+######################################################################
+## implementando a função de impressão das informações de um discente:
+######################################################################
+def definir_discente(aluno):
+    print("Matrícula        : {aluno.matricula}")
+    print(f"Nome            : {aluno.nome}")
+    print(f"Ano/Período     : {aluno.ano}.{aluno.periodo}")
+    print(f"Tipo/Status     : {aluno.tipo} - {aluno.status}")
+    print(f"Nível de Ensino : {aluno.nivel}")
+    print(f"Curso           : {aluno.curso} ({aluno.modalidade})")
+    print(f"Unidade         : {aluno.unidade}")
+    print(f"Unidade Gestora : {aluno.unidade_gestora}")
+    print("----------------------------------------\n")
+
+# atualização da função de leitura do discente de acordo com a nova formatação e criação de função própria:
+def ler_discente(lista_de_objetos):
+    for aluno in lista_de_objetos:
+	imprimir_discente(aluno)
+
 ## área de testes ##
 # aqui estamos chamando a função e passando o nome real do arquivo para verificar se está tudo ok
 nome_do_csv = "dis-csv-discentes-de-graduacao-de-2026.csv"
 lista_pronta = mapear_dados_csv(nome_do_csv)
-
+# testes
 print(f"Total de alunos carregados na memória: {len(lista_pronta)}")
-
-def ler_discente(lista_de_objetos):
-    for aluno in lista_de_objetos:
-        print(aluno.nome)
-        
 ler_discente(lista_pronta)
 
