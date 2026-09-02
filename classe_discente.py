@@ -55,8 +55,8 @@ def mapear_dados_csv(nome_arquivo):
 ######################################################################
 ## implementando a função de impressão das informações de um discente:
 ######################################################################
-def definir_discente(aluno):
-    print("Matrícula        : {aluno.matricula}")
+def imprimir_discente(aluno):
+    print(f"Matrícula        : {aluno.matricula}")
     print(f"Nome            : {aluno.nome}")
     print(f"Ano/Período     : {aluno.ano}.{aluno.periodo}")
     print(f"Tipo/Status     : {aluno.tipo} - {aluno.status}")
@@ -69,13 +69,40 @@ def definir_discente(aluno):
 # atualização da função de leitura do discente de acordo com a nova formatação e criação de função própria:
 def ler_discente(lista_de_objetos):
     for aluno in lista_de_objetos:
-	imprimir_discente(aluno)
+	    imprimir_discente(aluno)
 
 ## área de testes ##
 # aqui estamos chamando a função e passando o nome real do arquivo para verificar se está tudo ok
-nome_do_csv = "dis-csv-discentes-de-graduacao-de-2026.csv"
-lista_pronta = mapear_dados_csv(nome_do_csv)
+#nome_do_csv = "dis-csv-discentes-de-graduacao-de-2026.csv"
+#lista_pronta = mapear_dados_csv(nome_do_csv)
 # testes
-print(f"Total de alunos carregados na memória: {len(lista_pronta)}")
-ler_discente(lista_pronta)
+#print(f"Total de alunos carregados na memória: {len(lista_pronta)}")
+#ler_discente(lista_pronta)
+
+#função para percorrer a lista de alunos e escrever no arquivo .txt
+def arquivo_txt(lista_de_objetos, nome_arquivo):
+     with open(nome_arquivo, 'w', encoding='utf-8') as arquivo:
+          for aluno in lista_de_objetos:
+               arquivo.write(f"Matrícula: {aluno.matricula}\n")
+               arquivo.write(f"Nome: {aluno.nome}\n")
+               arquivo.write(f"Ano/Período: {aluno.ano}.{aluno.periodo}\n")
+               arquivo.write(f"Tipo/Status: {aluno.tipo} - {aluno.status}\n")
+               arquivo.write(f"Nível de Ensino: {aluno.nivel}\n")
+               arquivo.write(f"Curso: {aluno.curso}\n")
+               arquivo.write(f"Unidade: {aluno.unidade}\n")
+               arquivo.write(f"Unidade Gestora: {aluno.unidade_gestora}\n")
+               arquivo.write(f"----------------------------------------------\n\n")
+
+     print(f"Dados salvos com sucesso em: {nome_arquivo}")
+
+#função main para ler .csv, criar lista de discentes e salvra no .txt 
+def main():
+     nome_do_csv = "dis-csv-discentes-de-graduacao-de-2026.csv"
+     nome_do_txt = "discentes_2026.txt"
+     lista_de_objetos = mapear_dados_csv(nome_do_csv)
+     print(f"Total de alunos carregados na memória: {len(lista_de_objetos)}")
+     arquivo_txt(lista_de_objetos, nome_do_txt)
+
+if __name__ == "__main__":
+     main()
 
